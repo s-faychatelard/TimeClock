@@ -54,6 +54,10 @@
 		E4D827ED17047C87001D4FB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D827EC17047C87001D4FB0 /* MapKit.framework */; };
 		E4D827F417049A72001D4FB0 /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D827F317049A72001D4FB0 /* icon-57.png */; };
 		E4D827F617049A75001D4FB0 /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = E4D827F517049A74001D4FB0 /* icon-114.png */; };
+		E4E5C194174387D100FBF5B9 /* gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5C190174387D000FBF5B9 /* gray.png */; };
+		E4E5C195174387D100FBF5B9 /* gray_active.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5C191174387D000FBF5B9 /* gray_active.png */; };
+		E4E5C196174387D100FBF5B9 /* gray_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5C192174387D100FBF5B9 /* gray_active@2x.png */; };
+		E4E5C197174387D100FBF5B9 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4E5C193174387D100FBF5B9 /* gray@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +120,10 @@
 		E4D827EC17047C87001D4FB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4D827F317049A72001D4FB0 /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-57.png"; path = "../icon-57.png"; sourceTree = "<group>"; };
 		E4D827F517049A74001D4FB0 /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-114.png"; path = "../icon-114.png"; sourceTree = "<group>"; };
+		E4E5C190174387D000FBF5B9 /* gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gray.png; path = resources/gray.png; sourceTree = "<group>"; };
+		E4E5C191174387D000FBF5B9 /* gray_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gray_active.png; path = resources/gray_active.png; sourceTree = "<group>"; };
+		E4E5C192174387D100FBF5B9 /* gray_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gray_active@2x.png"; path = "resources/gray_active@2x.png"; sourceTree = "<group>"; };
+		E4E5C193174387D100FBF5B9 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gray@2x.png"; path = "resources/gray@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +155,10 @@
 		E4AD3D0F17074B24007C6B31 /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				E4E5C190174387D000FBF5B9 /* gray.png */,
+				E4E5C193174387D100FBF5B9 /* gray@2x.png */,
+				E4E5C191174387D000FBF5B9 /* gray_active.png */,
+				E4E5C192174387D100FBF5B9 /* gray_active@2x.png */,
 				E4AD3D3517076A00007C6B31 /* connexion.png */,
 				E4AD3D3817076A00007C6B31 /* connexion@2x.png */,
 				E4AD3D3617076A00007C6B31 /* connexion_active.png */,
@@ -364,6 +376,10 @@
 				E42C6B99170A2B110025EA7A /* Login4.xib in Resources */,
 				E42C6B9B170A2B160025EA7A /* Settings4.xib in Resources */,
 				E459E4FB170AFC3500F1C178 /* ViewController_iPad.xib in Resources */,
+				E4E5C194174387D100FBF5B9 /* gray.png in Resources */,
+				E4E5C195174387D100FBF5B9 /* gray_active.png in Resources */,
+				E4E5C196174387D100FBF5B9 /* gray_active@2x.png in Resources */,
+				E4E5C197174387D100FBF5B9 /* gray@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
