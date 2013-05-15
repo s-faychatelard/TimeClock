@@ -21,6 +21,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *nextDay;
 @property (strong, nonatomic) IBOutlet UIButton *disconnect;
 
+@property (strong, nonatomic) IBOutlet UIButton *back;
+@property (strong, nonatomic) IBOutlet UIButton *custom;
+
 @property (strong, nonatomic) IBOutlet UIScrollView *signsScrollView;
 @property (strong, nonatomic) NSArray *signs;
 
@@ -64,6 +67,13 @@
     /* Disconnect */
     [_disconnect setBackgroundImage:[[UIImage imageNamed:@"signout"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     [_disconnect setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    
+    
+    [_back setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [_back setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    
+    [_custom setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [_custom setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     
     [self drawLineInView:self.view andInRect:CGRectMake(10, 150, self.view.frame.size.width - 20, 1)];
 }

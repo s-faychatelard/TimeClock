@@ -25,6 +25,8 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *signInActivity;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *signOutActivity;
 
+@property (strong, nonatomic) IBOutlet UIButton *settings;
+
 @property (strong, nonatomic) NSArray *titles;
 @property (strong, nonatomic) NSArray *titleKeys;
 @property (readonly)          int titleIndex;
@@ -62,6 +64,12 @@
     [_signOut setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [_signOut setBackgroundImage:[[UIImage imageNamed:@"signout_disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateDisabled];
     [_signOut setEnabled:NO];
+    
+    
+    /* Settings button */
+    [_settings setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [_settings setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    
     
     /* Clock */
     if (IS_IPHONE_5)
