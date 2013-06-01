@@ -170,8 +170,6 @@
         return;
     }
     
-    NSLog(@"%@", dictionary);
-    
     _data = dictionary;
     
     [_dayLabel setText:[_data objectForKey:@"day"]];
