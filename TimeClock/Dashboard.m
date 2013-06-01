@@ -99,7 +99,7 @@
                 @"week",
                 @"yesterday",
                 @"first_signin",
-                @"",
+                @"last_week",
                 @"month",
                  ];
 }
@@ -164,11 +164,13 @@
 {
     if (dictionary == nil)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant la récupération des données.\nRéessayes un peu plus tard ou va rager sur Sylvain" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant la récupération des données.\nRéessayes un peu plus tard" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         alert=nil;
         return;
     }
+    
+    NSLog(@"%@", dictionary);
     
     _data = dictionary;
     
@@ -219,7 +221,7 @@
 {
     if ([[dictionary objectForKey:@"success"] intValue] == -1)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant le SignIn.\nRéessayes un peu plus tard ou va rager sur Sylvain" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant le SignIn.\nRéessayes un peu plus tard" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         alert=nil;
         return;

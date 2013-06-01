@@ -193,7 +193,7 @@
 {
     if (dictionary == nil || [[dictionary valueForKey:@"success"] intValue] == -1)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant l'ajout.\nRéessayes un peu plus tard ou va rager sur Sylvain" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Une erreur est survenue durant l'ajout.\nRéessayes un peu plus tard" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
         alert=nil;
         return;
