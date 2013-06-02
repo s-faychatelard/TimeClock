@@ -67,8 +67,8 @@
     
     
     /* Settings button */
-    [_settings setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_settings setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [_settings setBackgroundImage:[UIImage imageNamed:@"forward"] forState:UIControlStateNormal];
+    [_settings setBackgroundImage:[UIImage imageNamed:@"forward_active"] forState:UIControlStateHighlighted];
     
     
     /* Clock */

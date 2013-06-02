@@ -69,11 +69,11 @@
     [_disconnect setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     
     
-    [_back setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_back setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [_back setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [_back setBackgroundImage:[UIImage imageNamed:@"back_active"] forState:UIControlStateHighlighted];
     
-    [_custom setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_custom setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [_custom setBackgroundImage:[UIImage imageNamed:@"forward"] forState:UIControlStateNormal];
+    [_custom setBackgroundImage:[UIImage imageNamed:@"forward_active"] forState:UIControlStateHighlighted];
     
     [self drawLineInView:self.view andInRect:CGRectMake(10, 150, self.view.frame.size.width - 20, 1)];
 }

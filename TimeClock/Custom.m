@@ -57,8 +57,8 @@
     [_signOut setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [_signOut setBackgroundImage:[[UIImage imageNamed:@"signout_disabled"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateDisabled];
     
-    [_back setBackgroundImage:[[UIImage imageNamed:@"gray"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_back setBackgroundImage:[[UIImage imageNamed:@"gray_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [_back setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [_back setBackgroundImage:[UIImage imageNamed:@"back_active"] forState:UIControlStateHighlighted];
     
     
     _days = [[NSMutableArray alloc] init];
