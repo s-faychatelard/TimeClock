@@ -104,9 +104,9 @@
                  ];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     NSDictionary * dashSettings = [self loadFromDisk];
     if (dashSettings != nil)

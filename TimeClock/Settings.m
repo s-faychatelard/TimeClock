@@ -78,9 +78,9 @@
     [self drawLineInView:self.view andInRect:CGRectMake(10, 150, self.view.frame.size.width - 20, 1)];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     if (_username != nil && ![_username isEqualToString:@""] && _password != nil && ![_password isEqualToString:@""])
     {
