@@ -2,19 +2,17 @@
 //  Dashboard.h
 //  TimeClock
 //
-//  Created by Sylvain FAY-CHATELARD on 28/03/13.
-//  Copyright (c) 2013 Dviance. All rights reserved.
+//  Created by Sylvain FAY-CHATELARD on 09/09/13.
+//  Copyright (c) 2013 Sylvain FAY-CHATELARD. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "Clock.h"
-#import "Settings.h"
 
-@interface Dashboard : UIViewController <ClockDelegate, SettingsDelegate>
+@interface Dashboard : UIViewController <ClockDelegate>
 
-@property (strong, nonatomic) Clock *clock;
-
-@property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) IBOutlet Clock *clock;
 
 -(void)refreshView;
 

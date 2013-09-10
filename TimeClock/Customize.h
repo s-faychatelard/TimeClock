@@ -1,5 +1,5 @@
 //
-//  Settings.h
+//  Customize.h
 //  TimeClock
 //
 //  Created by Sylvain FAY-CHATELARD on 10/09/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Settings : UIViewController
+@interface Customize : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
 @end

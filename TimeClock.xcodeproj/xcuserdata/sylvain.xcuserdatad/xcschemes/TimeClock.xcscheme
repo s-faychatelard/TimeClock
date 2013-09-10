@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0460"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4D827BB17045B74001D4FB0"
+               BlueprintIdentifier = "E4B97C7C17DDF6BC008A65FB"
                BuildableName = "TimeClock.app"
                BlueprintName = "TimeClock"
                ReferencedContainer = "container:TimeClock.xcodeproj">
@@ -28,11 +28,21 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E4B97C9D17DDF6BC008A65FB"
+               BuildableName = "TimeClockTests.xctest"
+               BlueprintName = "TimeClockTests"
+               ReferencedContainer = "container:TimeClock.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D827BB17045B74001D4FB0"
+            BlueprintIdentifier = "E4B97C7C17DDF6BC008A65FB"
             BuildableName = "TimeClock.app"
             BlueprintName = "TimeClock"
             ReferencedContainer = "container:TimeClock.xcodeproj">
@@ -51,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D827BB17045B74001D4FB0"
+            BlueprintIdentifier = "E4B97C7C17DDF6BC008A65FB"
             BuildableName = "TimeClock.app"
             BlueprintName = "TimeClock"
             ReferencedContainer = "container:TimeClock.xcodeproj">
@@ -69,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4D827BB17045B74001D4FB0"
+            BlueprintIdentifier = "E4B97C7C17DDF6BC008A65FB"
             BuildableName = "TimeClock.app"
             BlueprintName = "TimeClock"
             ReferencedContainer = "container:TimeClock.xcodeproj">

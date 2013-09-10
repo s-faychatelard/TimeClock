@@ -2,62 +2,20 @@
 //  AppDelegate.m
 //  TimeClock
 //
-//  Created by Sylvain FAY-CHATELARD on 28/03/13.
-//  Copyright (c) 2013 Dviance. All rights reserved.
+//  Created by Sylvain FAY-CHATELARD on 09/09/13.
+//  Copyright (c) 2013 Sylvain FAY-CHATELARD. All rights reserved.
 //
 
 #import "AppDelegate.h"
 
-#import "Login.h"
-#import "ViewController_iPad.h"
-
 @implementation AppDelegate
-
-+ (UIViewController*)topMostController
-{
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    while (topController.presentedViewController) {
-        topController = topController.presentedViewController;
-    }
-    
-    return topController;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [application setStatusBarHidden:YES];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window setBackgroundColor:[UIColor colorWithRed:224./255. green:228./255. blue:232./255. alpha:1.]];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        self.viewController = [[ViewController_iPad alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
-    }
-    else
-    {
-        if (IS_IPHONE_5)
-        {
-            self.viewController = [[Login alloc] initWithNibName:@"Login" bundle:nil];
-        }
-        else
-        {
-            self.viewController = [[Login alloc] initWithNibName:@"Login4" bundle:nil];
-        }
-    }
-    self.window.rootViewController = self.viewController;
-    
-    [self.window makeKeyAndVisible];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        [(Login*)self.viewController tryLogin];
-    }
-    
+    // Override point for customization after application launch.
     return YES;
 }
-
+							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -66,7 +24,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -78,7 +36,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[AppDelegate topMostController] viewDidAppear:YES];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

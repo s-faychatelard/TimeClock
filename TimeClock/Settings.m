@@ -2,49 +2,30 @@
 //  Settings.m
 //  TimeClock
 //
-//  Created by Sylvain FAY-CHATELARD on 30/03/13.
-//  Copyright (c) 2013 Dviance. All rights reserved.
+//  Created by Sylvain FAY-CHATELARD on 10/09/13.
+//  Copyright (c) 2013 Sylvain FAY-CHATELARD. All rights reserved.
 //
 
 #import "Settings.h"
-#import "Custom.h"
+
+#import "AppDelegate.h"
 
 @interface Settings ()
-
-@property (strong, nonatomic) IBOutlet UIView *headerView;
-@property (strong, nonatomic) IBOutlet UIView *contentView;
-
-@property (strong, nonatomic) IBOutlet UILabel *userLbl;
 
 @property (strong, nonatomic) IBOutlet UIButton *currentDay;
 @property (strong, nonatomic) IBOutlet UIButton *previousDay;
 @property (strong, nonatomic) IBOutlet UIButton *nextDay;
 @property (strong, nonatomic) IBOutlet UIButton *disconnect;
 
-@property (strong, nonatomic) IBOutlet UIButton *back;
-@property (strong, nonatomic) IBOutlet UIButton *custom;
-
 @property (strong, nonatomic) IBOutlet UIScrollView *signsScrollView;
-@property (strong, nonatomic) NSArray *signs;
-
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 
-@property (strong, nonatomic) NSMutableDictionary *deleteButtons;
+@property (strong, nonatomic) NSArray *signs;
 @property (strong, nonatomic) NSMutableArray *views;
-
-@property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSMutableDictionary *deleteButtons;
 
 @property (strong, nonatomic) NSDictionary *data;
-@property (readonly) int dayIndex;
-
--(IBAction)back:(id)sender;
--(IBAction)openCustom:(id)sender;
--(IBAction)previousDay:(id)sender;
--(IBAction)nextDay:(id)sender;
--(IBAction)disconnect:(id)sender;
-
--(void)remove:(id)sender;
+@property (readwrite) NSInteger dayIndex;
 
 @end
 
@@ -53,39 +34,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _dayIndex = 0;
-    
-    /* Header */
-    [_headerView.layer setBorderWidth:1.];
-    [_headerView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
-    
-    /* Content */
-    [_contentView.layer setBorderWidth:1.];
-    [_contentView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
-    
-    /* Disconnect */
-    [_disconnect setBackgroundImage:[[UIImage imageNamed:@"signout"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_disconnect setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
-    
-    
-    [_back setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [_back setBackgroundImage:[UIImage imageNamed:@"back_active"] forState:UIControlStateHighlighted];
-    
-    [_custom setBackgroundImage:[UIImage imageNamed:@"forward"] forState:UIControlStateNormal];
-    [_custom setBackgroundImage:[UIImage imageNamed:@"forward_active"] forState:UIControlStateHighlighted];
-    
-    [self drawLineInView:self.view andInRect:CGRectMake(10, 150, self.view.frame.size.width - 20, 1)];
+	
+    [self drawLineInView:self.view andInRect:CGRectMake(10, _signsScrollView.frame.origin.y, _signsScrollView.frame.size.width - 20, 1)];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
-    if (_username != nil && ![_username isEqualToString:@""] && _password != nil && ![_password isEqualToString:@""])
-    {
-        [self refreshView];
-    }
+    [self refreshView];
 }
 
 - (void)refreshView
@@ -94,22 +51,35 @@
     [self performSelectorInBackground:@selector(get) withObject:nil];
 }
 
+- (IBAction)previousDay:(id)sender
+{
+    _dayIndex++;
+    [self refreshView];
+}
+
+- (IBAction)nextDay:(id)sender
+{
+    _dayIndex--;
+    [self refreshView];
+}
+
+- (IBAction)disconnect:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)get
 {
     NSURL *url = [NSURL URLWithString:API_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:20.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [request setHTTPMethod:@"POST"];
-    NSString *postString = [NSString stringWithFormat:@"action=journal&username=%@&password=%@&d=%d", _username, _password, _dayIndex];
+    NSString *postString = [NSString stringWithFormat:@"action=journal&username=%@&password=%@&d=%d", [appDelegate username], [appDelegate password], _dayIndex];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    //NSString *url = [NSString stringWithFormat:@"%@?action=journal&username=%@&password=%@&d=%d", API_URL, _username, _password, _dayIndex];
-    //NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    
     if (data == nil)
     {
         [self performSelectorOnMainThread:@selector(finishedGetWithDictionary:) withObject:nil waitUntilDone:NO];
@@ -137,7 +107,7 @@
     _data = dictionary;
     
     NSDictionary *journal = [_data valueForKey:@"journal"];
-
+    
     [_currentDay setTitle:[journal valueForKey:@"current_day"] forState:UIControlStateNormal];
     
     if ([[[journal valueForKey:@"next_day"] valueForKey:@"id"] intValue] == -1)
@@ -167,27 +137,29 @@
     [self clearViews];
     
     int yOffset = 10;
-    #define LABEL_HEIGHT 25
+#define LABEL_HEIGHT 25
     for (int i=0; i<[_signs count]; i++)
     {
         NSDictionary *sign = [_signs objectAtIndex:i];
         
         UILabel *action = [[UILabel alloc] initWithFrame:CGRectMake(15, yOffset, 72, LABEL_HEIGHT)];
+        [action setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
         [action setTextColor:[UIColor colorWithRed:61./255. green:64./255. blue:71./255. alpha:1.]];
         [action setTextAlignment:NSTextAlignmentLeft];
         [action setText:[sign valueForKey:@"action"]];
         
         UILabel *tick = [[UILabel alloc] initWithFrame:CGRectMake(100, yOffset, 94, LABEL_HEIGHT)];
+        [tick setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
         [tick setTextColor:[UIColor colorWithRed:61./255. green:64./255. blue:71./255. alpha:1.]];
         [tick setTextAlignment:NSTextAlignmentCenter];
         [tick setText:[sign valueForKey:@"tick"]];
         
         UIButton *delete = [[UIButton alloc] initWithFrame:CGRectMake(225, yOffset, 70, LABEL_HEIGHT)];
-        [delete setBackgroundImage:[[UIImage imageNamed:@"signout"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-        [delete setBackgroundImage:[[UIImage imageNamed:@"signout_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+        [delete setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        [delete setBackgroundImage:[UIImage imageNamed:@"delete_active"] forState:UIControlStateHighlighted];
         [delete setTitleShadowColor:[UIColor colorWithWhite:0. alpha:.24] forState:UIControlStateNormal];
         [[delete titleLabel] setShadowOffset:CGSizeMake(0, 1)];
-        [[delete titleLabel] setFont:[UIFont systemFontOfSize:12.]];
+        [[delete titleLabel] setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
         [delete setTitle:@"Supprimer" forState:UIControlStateNormal];
         
         [delete addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchUpInside];
@@ -246,56 +218,6 @@
     return v;
 }
 
-- (void)setUsername:(NSString*)username andPassword:(NSString *)password
-{
-    _username = username;
-    _password = password;
-    
-    [_userLbl setText:[NSString stringWithFormat:@"Connecté en tant que %@", username]];
-    
-    [self refreshView];
-}
-
-- (IBAction)back:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)openCustom:(id)sender
-{
-    Custom *custom = [[Custom alloc] initWithNibName:@"Custom" bundle:nil];
-    if (!IS_IPHONE_5)
-    {
-        custom = [[Custom alloc] initWithNibName:@"Custom4" bundle:nil];
-    }
-    [custom setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-    
-    [self.navigationController pushViewController:custom animated:YES];
-    
-    [custom setUsername:_username];
-    [custom setPassword:_password];
-}
-
-- (IBAction)previousDay:(id)sender
-{
-    _dayIndex++;
-    [self refreshView];
-}
-
-- (IBAction)nextDay:(id)sender
-{
-    _dayIndex--;
-    [self refreshView];
-}
-
-- (IBAction)disconnect:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:^(void) {
-        if (_delegate)
-            [_delegate disconnect];
-    }];
-}
-
 - (void)remove:(id)sender
 {
     [_activity startAnimating];
@@ -311,15 +233,13 @@
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:20.0];
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
     [request setHTTPMethod:@"POST"];
-    NSString *postString = [NSString stringWithFormat:@"action=remove&username=%@&password=%@&id=%@", _username, _password, id];
+    NSString *postString = [NSString stringWithFormat:@"action=remove&username=%@&password=%@&id=%@", [appDelegate username], [appDelegate password], id];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    //NSString *url = [NSString stringWithFormat:@"%@?action=remove&username=%@&password=%@&id=%@", API_URL, _username, _password, id];
-    //NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    
     if (data == nil)
     {
         [self performSelectorOnMainThread:@selector(finishedRemove:) withObject:nil waitUntilDone:NO];

@@ -40,30 +40,26 @@ NSString * const ClockSecondHand = @"clock_second_hand";
 #pragma mark -
 #pragma mark Initializers
 
-- (id)initWithFrame:(CGRect)frame
+- (void)setupInFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        
-        CGRect imageViewFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-        
-        _clockFaceImageView  = [[UIImageView alloc] initWithFrame:imageViewFrame];
-        _hourHandImageView   = [[UIImageView alloc] initWithFrame:imageViewFrame];
-        _minuteHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-        _secondHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
-        
-        [_clockFaceImageView setImage:[UIImage imageNamed:ClockClockFace]];
-        [_hourHandImageView setImage:[UIImage imageNamed:ClockHourHand]];
-        [_minuteHandImageView setImage:[UIImage imageNamed:ClockMinuteHand]];
-        [_secondHandImageView setImage:[UIImage imageNamed:ClockSecondHand]];
-        
-        [self addSubview:_clockFaceImageView];
-        [self addSubview:_hourHandImageView];
-        [self addSubview:_minuteHandImageView];
-        [self addSubview:_secondHandImageView];
-    }
-    return self;
+    _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    CGRect imageViewFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    
+    _clockFaceImageView  = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    _hourHandImageView   = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    _minuteHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    _secondHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    
+    [_clockFaceImageView setImage:[UIImage imageNamed:ClockClockFace]];
+    [_hourHandImageView setImage:[UIImage imageNamed:ClockHourHand]];
+    [_minuteHandImageView setImage:[UIImage imageNamed:ClockMinuteHand]];
+    [_secondHandImageView setImage:[UIImage imageNamed:ClockSecondHand]];
+    
+    [self addSubview:_clockFaceImageView];
+    [self addSubview:_hourHandImageView];
+    [self addSubview:_minuteHandImageView];
+    [self addSubview:_secondHandImageView];
 }
 
 #pragma mark -

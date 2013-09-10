@@ -1,5 +1,5 @@
 //
-//  Login.h
+//  ViewController.h
 //  TimeClock
 //
 //  Created by Sylvain FAY-CHATELARD on 09/09/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Login : UIViewController <UITextFieldDelegate>
+@interface ViewController : UIViewController <UINavigationControllerDelegate>
 
 @end

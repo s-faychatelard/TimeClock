@@ -2,8 +2,8 @@
 //  AppDelegate.h
 //  TimeClock
 //
-//  Created by Sylvain FAY-CHATELARD on 28/03/13.
-//  Copyright (c) 2013 Dviance. All rights reserved.
+//  Created by Sylvain FAY-CHATELARD on 09/09/13.
+//  Copyright (c) 2013 Sylvain FAY-CHATELARD. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -12,8 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) UIViewController *viewController;
-
-+(UIViewController*)topMostController;
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *password;
 
 @end

@@ -2,26 +2,25 @@
 //  Login.m
 //  TimeClock
 //
-//  Created by Sylvain FAY-CHATELARD on 30/03/13.
-//  Copyright (c) 2013 Dviance. All rights reserved.
+//  Created by Sylvain FAY-CHATELARD on 09/09/13.
+//  Copyright (c) 2013 Sylvain FAY-CHATELARD. All rights reserved.
 //
 
 #import "Login.h"
-#import "Dashboard.h"
+
+#import "AppDelegate.h"
 
 @interface Login ()
 
-@property (strong, nonatomic) IBOutlet UIView *headerView;
-@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet UIView *loginView;
+@property (strong, nonatomic) IBOutlet UILabel *loginLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *connexionButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *username;
 @property (strong, nonatomic) IBOutlet UITextField *password;
 
-@property (strong, nonatomic) IBOutlet UIButton *connexion;
-
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activity;
-
--(IBAction)connexion:(id)sender;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *connexionActivity;
 
 @end
 
@@ -30,76 +29,66 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+	
     /* Header */
-    [_headerView.layer setBorderWidth:1.];
-    [_headerView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
+    [_loginLabel.layer setBorderWidth:1.];
+    [_loginLabel.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
     /* Content */
-    [_contentView.layer setBorderWidth:1.];
-    [_contentView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
+    [_loginView.layer setBorderWidth:1.];
+    [_loginView.layer setCornerRadius:3.];
+    [_loginView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
-    /* Connexion */
-    [_connexion setBackgroundImage:[[UIImage imageNamed:@"connexion"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [_connexion setBackgroundImage:[[UIImage imageNamed:@"connexion_active"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [_username setText:@"Sylvain"];
+    [_password setText:@"sylvain01"];
 }
 
-- (void)tryLogin
+- (void)viewWillAppear:(BOOL)animated
 {
-    NSDictionary *data = [self loadFromDisk];
-    if (data && [data objectForKey:@"user"] != nil && [data objectForKey:@"pass"] != nil)
-    {
-        [_username setText:[data objectForKey:@"user"]];
-        
-        if (![[data objectForKey:@"pass"] isEqual:@""])
-        {
-            [_password setText:[data objectForKey:@"pass"]];
-            [self connexion:nil];
-        }
-    }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [super viewWillAppear:animated];
     
-    if (textField == _username)
-        [_password becomeFirstResponder];
-    else
-    {
-        [self connexion:nil];
-        [textField resignFirstResponder];
-    }
-    return YES;
+    [_username setEnabled:YES];
+    [_password setEnabled:YES];
+    [_connexionButton setEnabled:YES];
+    [_connexionActivity stopAnimating];
+    [_connexionButton setTitle:@"Connexion" forState:UIControlStateNormal];
 }
 
 - (IBAction)connexion:(id)sender
 {
-    [_activity startAnimating];
-    [_connexion setTitle:@"" forState:UIControlStateNormal];
+    if ([[_username text] isEqualToString:@""] && [[_password text] isEqualToString:@""])
+    {
+        return;
+    }
     
-    [self performSelectorInBackground:@selector(login) withObject:nil];
+    [_username setEnabled:NO];
+    [_password setEnabled:NO];
+    
+    CGRect frame = _loginView.frame;
+    frame.origin.y = 20;
+    
+    [UIView animateWithDuration:.25 animations:^(void){
+        [_loginView setFrame:frame];
+    }];
+    
+    [_connexionButton setEnabled:NO];
+    [_connexionActivity startAnimating];
+    [_connexionButton setTitle:@"" forState:UIControlStateNormal];
+    
+    [self performSelector:@selector(connect) withObject:nil afterDelay:5.];
 }
 
-- (void)login
-{
-    [self loginWithUsername:[_username text] andPassword:[_password text]];
-}
-
-- (void)loginWithUsername:(NSString*)username andPassword:(NSString*)password
+- (void)connect
 {
     NSURL *url = [NSURL URLWithString:API_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                       timeoutInterval:20.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+
+    NSString *postString = [NSString stringWithFormat:@"action=login&username=%@&password=%@", [_username text], [_password text]];
     
     [request setHTTPMethod:@"POST"];
-    NSString *postString = [NSString stringWithFormat:@"action=login&username=%@&password=%@", username, password];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    //NSString *url = [NSString stringWithFormat:@"%@?action=login&username=%@&password=%@", API_URL, username, password];
-    //NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    
     if (data == nil)
     {
         [self performSelectorOnMainThread:@selector(showError:) withObject:@"Une erreur est survenue durant la connexion" waitUntilDone:NO];
@@ -111,7 +100,17 @@
     
     if ([[res objectForKey:@"success"] intValue] != -1)
     {
-        [self performSelectorOnMainThread:@selector(openDashboard) withObject:nil waitUntilDone:NO];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate setUsername:[_username text]];
+        [appDelegate setPassword:[_password text]];
+        
+        [_username setText:@""];
+        [_password setText:@""];
+        
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+        [viewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+        
+        [self presentViewController:viewController animated:YES completion:nil];
     }
     else
     {
@@ -119,53 +118,47 @@
     }
 }
 
-- (void)openDashboard
-{
-    Dashboard *dashboard = [[Dashboard alloc] initWithNibName:@"Dashboard" bundle:nil];
-    if (!IS_IPHONE_5)
-    {
-        dashboard = [[Dashboard alloc] initWithNibName:@"Dashboard4" bundle:nil];
-    }
-    [dashboard setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [dashboard setUsername:[_username text]];
-    [dashboard setPassword:[_password text]];
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dashboard];
-    [navigationController setNavigationBarHidden:YES];
-    
-    [self presentViewController:navigationController animated:YES completion:^(void) {
-        
-        [_activity stopAnimating];
-        [_connexion setTitle:@"Connexion" forState:UIControlStateNormal];
-        
-        [self saveToDisk];
-        [_password setText:@""];
-    }];
-}
-
 - (void)showError:(NSString*)message
 {
-    [_activity stopAnimating];
-    [_connexion setTitle:@"Connexion" forState:UIControlStateNormal];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate setUsername:@""];
+    [appDelegate setUsername:@""];
+    
+    [_username setEnabled:YES];
+    [_password setEnabled:YES];
+    [_connexionButton setEnabled:YES];
+    [_connexionActivity stopAnimating];
+    [_connexionButton setTitle:@"Connexion" forState:UIControlStateNormal];
+    
+    [_password setText:@""];
+    [_password becomeFirstResponder];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithString:message] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
-    alert=nil;
 }
 
-- (void)saveToDisk
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    [data setValue:[_username text] forKey:@"user"];
-    [data setValue:[_password text] forKey:@"pass"];
+    if (textField == _username || isPhone5) return;
     
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"users"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    CGRect frame = _loginView.frame;
+    frame.origin.y = 145 - textField.frame.origin.y;
+    
+    [UIView animateWithDuration:.25 animations:^(void){
+        [_loginView setFrame:frame];
+    }];
 }
 
-- (NSDictionary*)loadFromDisk
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"users"];
+    if (textField == _username) {
+        [_password becomeFirstResponder];
+    }
+    else {
+        [self connexion:_connexionButton];
+    }
+    
+    return YES;
 }
 
 @end

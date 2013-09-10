@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) id<ClockDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame;
+- (void)setupInFrame:(CGRect)frame;
 - (void)start;
 - (void)stop;
 - (void)updateClockTimeAnimated:(BOOL)animated;
