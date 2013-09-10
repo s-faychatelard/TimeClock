@@ -13,6 +13,6 @@ Warning : The backend is not available.
 
 # Compiling TimeClock
 
-You must install XCode 4.6.
+You must install XCode 5.
 
-TimeClock require a minimum 6.1 iOS SDK
+TimeClock require a minimum 7.0 iOS SDK
