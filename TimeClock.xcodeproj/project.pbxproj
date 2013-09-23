@@ -11,9 +11,6 @@
 		E48415C817DE086200592AD3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415C717DE086200592AD3 /* ViewController.m */; };
 		E48415CC17DE172000592AD3 /* Clock.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415CB17DE172000592AD3 /* Clock.m */; };
 		E48415D017DE178100592AD3 /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415CF17DE178100592AD3 /* Dashboard.m */; };
-		E48415D517DE1EB700592AD3 /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415D217DE1EB700592AD3 /* Icon-58.png */; };
-		E48415D617DE1EB700592AD3 /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415D317DE1EB700592AD3 /* Icon-80.png */; };
-		E48415D717DE1EB700592AD3 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415D417DE1EB700592AD3 /* Icon-120.png */; };
 		E48415D917DE1F5100592AD3 /* LaunchImage-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415D817DE1F5100592AD3 /* LaunchImage-568@2x.png */; };
 		E48415DD17DE1F9B00592AD3 /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415DC17DE1F9B00592AD3 /* LaunchImage@2x.png */; };
 		E48415E417DF4A1700592AD3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415E317DF4A1700592AD3 /* Settings.m */; };
@@ -38,9 +35,6 @@
 		E48415CB17DE172000592AD3 /* Clock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Clock.m; sourceTree = "<group>"; };
 		E48415CE17DE178100592AD3 /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		E48415CF17DE178100592AD3 /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
-		E48415D217DE1EB700592AD3 /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-58.png"; path = "Resources/Icon/Icon-58.png"; sourceTree = "<group>"; };
-		E48415D317DE1EB700592AD3 /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-80.png"; path = "Resources/Icon/Icon-80.png"; sourceTree = "<group>"; };
-		E48415D417DE1EB700592AD3 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-120.png"; path = "Resources/Icon/Icon-120.png"; sourceTree = "<group>"; };
 		E48415D817DE1F5100592AD3 /* LaunchImage-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LaunchImage-568@2x.png"; path = "Resources/Launch Image/LaunchImage-568@2x.png"; sourceTree = "<group>"; };
 		E48415DC17DE1F9B00592AD3 /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LaunchImage@2x.png"; path = "Resources/Launch Image/LaunchImage@2x.png"; sourceTree = "<group>"; };
 		E48415E217DF4A1700592AD3 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -100,20 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				E48415DB17DE1F5900592AD3 /* LaunchImage */,
-				E48415DA17DE1F5400592AD3 /* Icon */,
 			);
 			name = Resources;
 			path = TimeClock;
-			sourceTree = "<group>";
-		};
-		E48415DA17DE1F5400592AD3 /* Icon */ = {
-			isa = PBXGroup;
-			children = (
-				E48415D217DE1EB700592AD3 /* Icon-58.png */,
-				E48415D317DE1EB700592AD3 /* Icon-80.png */,
-				E48415D417DE1EB700592AD3 /* Icon-120.png */,
-			);
-			name = Icon;
 			sourceTree = "<group>";
 		};
 		E48415DB17DE1F5900592AD3 /* LaunchImage */ = {
@@ -288,12 +271,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B97C9917DDF6BC008A65FB /* Images.xcassets in Resources */,
-				E48415D617DE1EB700592AD3 /* Icon-80.png in Resources */,
 				E48415D917DE1F5100592AD3 /* LaunchImage-568@2x.png in Resources */,
-				E48415D517DE1EB700592AD3 /* Icon-58.png in Resources */,
 				E4B97C8B17DDF6BC008A65FB /* InfoPlist.strings in Resources */,
 				E48415DD17DE1F9B00592AD3 /* LaunchImage@2x.png in Resources */,
-				E48415D717DE1EB700592AD3 /* Icon-120.png in Resources */,
 				E4B97C9417DDF6BC008A65FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
