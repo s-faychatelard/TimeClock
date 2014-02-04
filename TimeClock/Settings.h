@@ -10,4 +10,6 @@
 
 @interface Settings : UIViewController
 
+-(void)refreshView;
+
 @end

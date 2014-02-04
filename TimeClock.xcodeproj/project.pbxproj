@@ -11,8 +11,6 @@
 		E48415C817DE086200592AD3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415C717DE086200592AD3 /* ViewController.m */; };
 		E48415CC17DE172000592AD3 /* Clock.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415CB17DE172000592AD3 /* Clock.m */; };
 		E48415D017DE178100592AD3 /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415CF17DE178100592AD3 /* Dashboard.m */; };
-		E48415D917DE1F5100592AD3 /* LaunchImage-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415D817DE1F5100592AD3 /* LaunchImage-568@2x.png */; };
-		E48415DD17DE1F9B00592AD3 /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E48415DC17DE1F9B00592AD3 /* LaunchImage@2x.png */; };
 		E48415E417DF4A1700592AD3 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415E317DF4A1700592AD3 /* Settings.m */; };
 		E48415E817DF555800592AD3 /* Customize.m in Sources */ = {isa = PBXBuildFile; fileRef = E48415E717DF555800592AD3 /* Customize.m */; };
 		E4B97C8117DDF6BC008A65FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4B97C8017DDF6BC008A65FB /* Foundation.framework */; };
@@ -35,8 +33,6 @@
 		E48415CB17DE172000592AD3 /* Clock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Clock.m; sourceTree = "<group>"; };
 		E48415CE17DE178100592AD3 /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
 		E48415CF17DE178100592AD3 /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
-		E48415D817DE1F5100592AD3 /* LaunchImage-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LaunchImage-568@2x.png"; path = "Resources/Launch Image/LaunchImage-568@2x.png"; sourceTree = "<group>"; };
-		E48415DC17DE1F9B00592AD3 /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LaunchImage@2x.png"; path = "Resources/Launch Image/LaunchImage@2x.png"; sourceTree = "<group>"; };
 		E48415E217DF4A1700592AD3 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		E48415E317DF4A1700592AD3 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		E48415E617DF555800592AD3 /* Customize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customize.h; sourceTree = "<group>"; };
@@ -88,24 +84,6 @@
 				E48415CB17DE172000592AD3 /* Clock.m */,
 			);
 			name = Clock;
-			sourceTree = "<group>";
-		};
-		E48415D117DE1EAC00592AD3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				E48415DB17DE1F5900592AD3 /* LaunchImage */,
-			);
-			name = Resources;
-			path = TimeClock;
-			sourceTree = "<group>";
-		};
-		E48415DB17DE1F5900592AD3 /* LaunchImage */ = {
-			isa = PBXGroup;
-			children = (
-				E48415DC17DE1F9B00592AD3 /* LaunchImage@2x.png */,
-				E48415D817DE1F5100592AD3 /* LaunchImage-568@2x.png */,
-			);
-			name = LaunchImage;
 			sourceTree = "<group>";
 		};
 		E48415DE17DF49EA00592AD3 /* Login */ = {
@@ -160,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				E4B97C8617DDF6BC008A65FB /* TimeClock */,
-				E48415D117DE1EAC00592AD3 /* Resources */,
 				E4B97C7F17DDF6BC008A65FB /* Frameworks */,
 				E4B97C7E17DDF6BC008A65FB /* Products */,
 			);
@@ -271,9 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B97C9917DDF6BC008A65FB /* Images.xcassets in Resources */,
-				E48415D917DE1F5100592AD3 /* LaunchImage-568@2x.png in Resources */,
 				E4B97C8B17DDF6BC008A65FB /* InfoPlist.strings in Resources */,
-				E48415DD17DE1F9B00592AD3 /* LaunchImage@2x.png in Resources */,
 				E4B97C9417DDF6BC008A65FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

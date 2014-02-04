@@ -10,4 +10,6 @@
 
 @interface Login : UIViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) UIViewController *dashboard;
+
 @end

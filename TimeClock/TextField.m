@@ -34,7 +34,7 @@
     
 	CALayer *layer = self.layer;
 	layer.cornerRadius = 3.;
-	layer.borderWidth = 1.;
+	layer.borderWidth = .5;
 	layer.borderColor = [[UIColor colorWithRed:205./255. green:205./255. blue:205./255. alpha:1.] CGColor];
 	[super layoutSubviews];
 }

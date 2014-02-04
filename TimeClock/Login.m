@@ -31,16 +31,18 @@
     [super viewDidLoad];
 	
     /* Header */
-    [_loginLabel.layer setBorderWidth:1.];
+    [_loginLabel.layer setBorderWidth:.5];
     [_loginLabel.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
     /* Content */
-    [_loginView.layer setBorderWidth:1.];
+    [_loginView.layer setBorderWidth:.5];
     [_loginView.layer setCornerRadius:3.];
     [_loginView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
-    [_username setText:@"Sylvain"];
-    [_password setText:@"sylvain01"];
+    //[_username setText:@"Sylvain"];
+    //[_password setText:@"sylvain01"];
+    [_username setText:[[NSUserDefaults standardUserDefaults] valueForKey:@"username"]];
+    [_password setText:[[NSUserDefaults standardUserDefaults] valueForKey:@"password"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,6 +54,11 @@
     [_connexionButton setEnabled:YES];
     [_connexionActivity stopAnimating];
     [_connexionButton setTitle:@"Connexion" forState:UIControlStateNormal];
+    
+    if (![[_username text] isEqualToString:@""] && ![[_password text] isEqualToString:@""])
+    {
+        [self connexion:nil];
+    }
 }
 
 - (IBAction)connexion:(id)sender
@@ -107,10 +114,10 @@
         [_username setText:@""];
         [_password setText:@""];
         
-        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
-        [viewController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+        _dashboard = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+        [_dashboard setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
         
-        [self presentViewController:viewController animated:YES completion:nil];
+        [self presentViewController:_dashboard animated:YES completion:nil];
     }
     else
     {

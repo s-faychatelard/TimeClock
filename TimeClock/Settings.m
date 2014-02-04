@@ -12,7 +12,7 @@
 
 @interface Settings ()
 
-@property (strong, nonatomic) IBOutlet UIButton *currentDay;
+@property (strong, nonatomic) IBOutlet UILabel  *currentDay;
 @property (strong, nonatomic) IBOutlet UIButton *previousDay;
 @property (strong, nonatomic) IBOutlet UIButton *nextDay;
 @property (strong, nonatomic) IBOutlet UIButton *disconnect;
@@ -35,7 +35,9 @@
 {
     [super viewDidLoad];
 	
-    [self drawLineInView:self.view andInRect:CGRectMake(10, _signsScrollView.frame.origin.y, _signsScrollView.frame.size.width - 20, 1)];
+    /* Content */
+    [_signsScrollView.layer setBorderWidth:.5];
+    [_signsScrollView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,7 +78,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [request setHTTPMethod:@"POST"];
-    NSString *postString = [NSString stringWithFormat:@"action=journal&username=%@&password=%@&d=%d", [appDelegate username], [appDelegate password], _dayIndex];
+    NSString *postString = [NSString stringWithFormat:@"action=journal&username=%@&password=%@&d=%@", [appDelegate username], [appDelegate password], [[NSNumber numberWithInteger:_dayIndex] stringValue]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
@@ -108,7 +110,10 @@
     
     NSDictionary *journal = [_data valueForKey:@"journal"];
     
-    [_currentDay setTitle:[journal valueForKey:@"current_day"] forState:UIControlStateNormal];
+    NSLog(@"%@", [journal valueForKey:@"current_day"]);
+    NSLog(@"%@", journal);
+    
+    [_currentDay setText:[journal valueForKey:@"current_day"]];
     
     if ([[[journal valueForKey:@"next_day"] valueForKey:@"id"] intValue] == -1)
     {
@@ -142,24 +147,24 @@
     {
         NSDictionary *sign = [_signs objectAtIndex:i];
         
-        UILabel *action = [[UILabel alloc] initWithFrame:CGRectMake(15, yOffset, 72, LABEL_HEIGHT)];
-        [action setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+        UILabel *action = [[UILabel alloc] initWithFrame:CGRectMake(18, yOffset, 72, LABEL_HEIGHT)];
+        [action setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.]];
         [action setTextColor:[UIColor colorWithRed:61./255. green:64./255. blue:71./255. alpha:1.]];
         [action setTextAlignment:NSTextAlignmentLeft];
         [action setText:[sign valueForKey:@"action"]];
         
         UILabel *tick = [[UILabel alloc] initWithFrame:CGRectMake(100, yOffset, 94, LABEL_HEIGHT)];
-        [tick setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+        [tick setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.]];
         [tick setTextColor:[UIColor colorWithRed:61./255. green:64./255. blue:71./255. alpha:1.]];
         [tick setTextAlignment:NSTextAlignmentCenter];
         [tick setText:[sign valueForKey:@"tick"]];
         
         UIButton *delete = [[UIButton alloc] initWithFrame:CGRectMake(225, yOffset, 70, LABEL_HEIGHT)];
-        [delete setBackgroundImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-        [delete setBackgroundImage:[UIImage imageNamed:@"delete_active"] forState:UIControlStateHighlighted];
-        [delete setTitleShadowColor:[UIColor colorWithWhite:0. alpha:.24] forState:UIControlStateNormal];
-        [[delete titleLabel] setShadowOffset:CGSizeMake(0, 1)];
-        [[delete titleLabel] setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
+        [delete setBackgroundImage:[UIImage imageNamed:@"signout"] forState:UIControlStateNormal];
+        [delete setBackgroundImage:[UIImage imageNamed:@"signout_active"] forState:UIControlStateHighlighted];
+        [delete setTitleColor:[UIColor colorWithRed:149./255. green:54./255. blue:47./255. alpha:1.] forState:UIControlStateNormal];
+        [delete setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [[delete titleLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12.]];
         [delete setTitle:@"Supprimer" forState:UIControlStateNormal];
         
         [delete addTarget:self action:@selector(remove:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,7 +175,7 @@
         [_signsScrollView addSubview:tick];
         [_signsScrollView addSubview:delete];
         
-        UIView *v = [self drawLineInView:_signsScrollView andInRect:CGRectMake(5, yOffset + LABEL_HEIGHT + 5, _signsScrollView.frame.size.width - 10, 1)];
+        UIView *v = [self drawLineInView:_signsScrollView andInRect:CGRectMake(18, yOffset + LABEL_HEIGHT + 5, _signsScrollView.frame.size.width - 10, .5)];
         
         [_views addObject:action];
         [_views addObject:tick];
@@ -183,6 +188,7 @@
     if ([_signs count] == 0)
     {
         UILabel *empty = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, _signsScrollView.frame.size.width, LABEL_HEIGHT)];
+        [empty setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.]];
         [empty setTextColor:[UIColor colorWithRed:61./255. green:64./255. blue:71./255. alpha:1.]];
         [empty setTextAlignment:NSTextAlignmentCenter];
         [empty setText:@"Aucune action enregistrée"];

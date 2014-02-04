@@ -2,14 +2,17 @@
   "images" : [
     {
       "resizing" : {
-        "mode" : "3-part-horizontal",
+        "mode" : "9-part",
         "center" : {
           "mode" : "fill",
-          "width" : 1
+          "width" : 1,
+          "height" : 1
         },
         "capInsets" : {
+          "bottom" : 4,
+          "top" : 4,
           "right" : 4,
-          "left" : 5
+          "left" : 4
         }
       },
       "idiom" : "universal",
@@ -18,13 +21,16 @@
     },
     {
       "resizing" : {
-        "mode" : "3-part-horizontal",
+        "mode" : "9-part",
         "center" : {
           "mode" : "fill",
-          "width" : 1
+          "width" : 1,
+          "height" : 1
         },
         "capInsets" : {
-          "right" : 6,
+          "bottom" : 7,
+          "top" : 7,
+          "right" : 7,
           "left" : 7
         }
       },

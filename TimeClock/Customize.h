@@ -10,4 +10,6 @@
 
 @interface Customize : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
+-(void)refreshView;
+
 @end

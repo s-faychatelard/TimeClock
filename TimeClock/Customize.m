@@ -65,7 +65,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self refreshViewForNow];
+    [self refreshView];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -108,7 +108,7 @@
     }];
 }
 
-- (void)refreshViewForNow
+- (void)refreshView
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setLocale:[NSLocale currentLocale]];

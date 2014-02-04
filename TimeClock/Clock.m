@@ -51,10 +51,15 @@ NSString * const ClockSecondHand = @"clock_second_hand";
     _minuteHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
     _secondHandImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
     
-    [_clockFaceImageView setImage:[UIImage imageNamed:ClockClockFace]];
-    [_hourHandImageView setImage:[UIImage imageNamed:ClockHourHand]];
-    [_minuteHandImageView setImage:[UIImage imageNamed:ClockMinuteHand]];
-    [_secondHandImageView setImage:[UIImage imageNamed:ClockSecondHand]];
+    [_clockFaceImageView setImage:[[UIImage imageNamed:ClockClockFace] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_hourHandImageView setImage:[[UIImage imageNamed:ClockHourHand] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_minuteHandImageView setImage:[[UIImage imageNamed:ClockMinuteHand] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [_secondHandImageView setImage:[[UIImage imageNamed:ClockSecondHand] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    
+    [_hourHandImageView setTintColor:[UIColor grayColor]];
+    [_minuteHandImageView setTintColor:[UIColor grayColor]];
+    //[_secondHandImageView setTintColor:[UIColor redColor]];
+    [_secondHandImageView setTintColor:[UIColor colorWithRed:210/255. green:71./255. blue:60./255. alpha:1.]];
     
     [self addSubview:_clockFaceImageView];
     [self addSubview:_hourHandImageView];

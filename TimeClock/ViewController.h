@@ -10,4 +10,6 @@
 
 @interface ViewController : UIViewController <UINavigationControllerDelegate>
 
+@property (strong, nonatomic) UINavigationController *navigationController;
+
 @end

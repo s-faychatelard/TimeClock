@@ -13,10 +13,7 @@
 @interface Dashboard ()
 
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dayTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dayLabel;
-@property (strong, nonatomic) IBOutlet UILabel *weekTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *weekLabel;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) IBOutlet UIButton *signIn;
 @property (strong, nonatomic) IBOutlet UIButton *signOut;
@@ -26,13 +23,11 @@
 
 @property (strong, nonatomic) NSArray *titles;
 @property (strong, nonatomic) NSArray *titleKeys;
-@property (readonly)          int titleIndex;
 
 @property (strong, nonatomic) NSDictionary *data;
 
 -(void)sign:(NSString*)signType;
 -(IBAction)toggleSign:(id)sender;
--(IBAction)changeText:(id)sender;
 
 @end
 
@@ -47,43 +42,33 @@
     [_clock setDelegate:self];
     [_clock start];
 
-    _titleIndex = 0;
     _titles = @[
-                @"Temps cumulé sur la semaine en cours :",
-                @"Temps cumulé sur la journée d'hier :",
-                @"Heure du premier Sign in de la journée :",
-                @"Temps cumulé sur la semaine dernière :",
-                @"Temps cumulé sur le mois en cours :"
+                @"Journée",
+                @"Semaine en cours",
+                @"Journée d'hier",
+                @"Premier Sign in",
+                @"Semaine dernière",
+                @"Mois en cours"
                 ];
     
     _titleKeys = @[
+                   @"day",
                    @"week",
                    @"yesterday",
                    @"first_signin",
                    @"last_week",
                    @"month",
                    ];
+    
+    /* Content */
+    [_tableView.layer setBorderWidth:.5];
+    [_tableView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
+    [_tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    NSDictionary * dashSettings = [self loadFromDisk];
-    if (dashSettings != nil)
-    {
-        _titleIndex = [[dashSettings objectForKey:@"title_index"] intValue];
-        [_weekTitleLabel setText:[_titles objectAtIndex:_titleIndex]];
-        
-        if (_data == nil)
-        {
-            [_weekLabel setText:@"-"];
-        }
-        else
-        {
-            [_weekLabel setText:[_data objectForKey:[_titleKeys objectAtIndex:_titleIndex]]];
-        }
-    }
     
     [self refreshView];
 }
@@ -130,9 +115,7 @@
     }
     
     _data = dictionary;
-    
-    [_dayLabel setText:[_data objectForKey:@"day"]];
-    [_weekLabel setText:[_data objectForKey:[_titleKeys objectAtIndex:_titleIndex]]];
+    [_tableView reloadData];
     
     if ([[_data objectForKey:@"last_action"] intValue] == 1)
     {
@@ -210,39 +193,21 @@
     [self refreshView];
 }
 
-- (void)changeText:(id)sender
+#pragma mark - TableView data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _titleIndex++;
-    
-    if (_titleIndex == [_titles count])
-        _titleIndex = 0;
-    
-    [_weekTitleLabel setText:[_titles objectAtIndex:_titleIndex]];
-    
-    if (_data == nil)
-    {
-        [_weekLabel setText:@"-"];
-        return;
-    }
-    [_weekLabel setText:[_data objectForKey:[_titleKeys objectAtIndex:_titleIndex]]];
-    
-    [self saveToDisk];
+    return _titles.count;
 }
 
-#pragma mark Settings save
-
-- (void)saveToDisk
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    [data setValue:[NSString stringWithFormat:@"%d", _titleIndex] forKey:@"title_index"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"dashboard"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSDictionary*)loadFromDisk
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"dashboard"];
+    cell.textLabel.text = [_titles objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text = [_data objectForKey:[_titleKeys objectAtIndex:indexPath.row]];
+    
+    return cell;
 }
 
 #pragma mark - SettingsDelegate
