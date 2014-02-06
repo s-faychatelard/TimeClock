@@ -29,9 +29,9 @@ NSString * const ClockSecondHand = @"clock_second_hand";
 - (void)updateHoursHand;
 - (void)updateMinutesHand;
 - (void)updateSecondsHand;
-- (int)hours;
-- (int)minutes;
-- (int)seconds;
+- (NSInteger)hours;
+- (NSInteger)minutes;
+- (NSInteger)seconds;
 
 @end
 
@@ -131,10 +131,10 @@ NSString * const ClockSecondHand = @"clock_second_hand";
 {
     int degreesPerHour   = 30;
     
-    int hours = [self hours];
-    int minutes = [self minutes];
+    NSInteger hours = [self hours];
+    NSInteger minutes = [self minutes];
     
-    int hoursFor12HourClock = hours < 12 ? hours : hours - 12;
+    NSInteger hoursFor12HourClock = hours < 12 ? hours : hours - 12;
     
     float rotationForHoursComponent  = hoursFor12HourClock * degreesPerHour;
     float rotationForMinuteComponent = minutes / 2;
@@ -148,9 +148,9 @@ NSString * const ClockSecondHand = @"clock_second_hand";
 
 - (void)updateMinutesHand
 {
-    int degreesPerMinute = 6;
+    NSInteger degreesPerMinute = 6;
     
-    int minutes = [self minutes];
+    NSInteger minutes = [self minutes];
     
     double minutesAngle = degreesToRadians(minutes * degreesPerMinute);
     
@@ -159,26 +159,26 @@ NSString * const ClockSecondHand = @"clock_second_hand";
 
 - (void)updateSecondsHand
 {
-    int degreesPerSecond = 6;
+    NSInteger degreesPerSecond = 6;
     
-    int seconds = [self seconds];
+    NSInteger seconds = [self seconds];
     
     double secondsAngle = degreesToRadians(seconds * degreesPerSecond);
     
     self.secondHandImageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, secondsAngle);
 }
 
-- (int)hours
+- (NSInteger)hours
 {
     return [[self.calendar components:NSHourCalendarUnit fromDate:self.now] hour];
 }
 
-- (int)minutes
+- (NSInteger)minutes
 {
     return [[self.calendar components:NSMinuteCalendarUnit fromDate:self.now] minute];
 }
 
-- (int)seconds
+- (NSInteger)seconds
 {
     return [[self.calendar components:NSSecondCalendarUnit fromDate:self.now] second];;
 }

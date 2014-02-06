@@ -66,6 +66,8 @@
     [super viewWillAppear:animated];
     
     [self refreshView];
+    
+    [self textFieldShouldBeginEditing:_date];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -131,7 +133,7 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     NSMutableString *request = [[NSMutableString alloc] init];
-    [request appendFormat:@"action=insert&username=%@&password=%@&type=%d&date=%d&hour=%@&minute=%@", [appDelegate username], [appDelegate password], action, [_days indexOfObject:[_date text]], [_hour text], [_minute text]];
+    [request appendFormat:@"action=insert&username=%@&password=%@&type=%d&date=%@&hour=%@&minute=%@", [appDelegate username], [appDelegate password], action, [[NSNumber numberWithUnsignedInteger:[_days indexOfObject:[_date text]]] stringValue], [_hour text], [_minute text]];
     [self performSelectorInBackground:@selector(send:) withObject:request];
 }
 
@@ -195,10 +197,10 @@
             [_date setText:[_days objectAtIndex:row]];
             break;
         case 1:
-            [_hour setText:[NSString stringWithFormat:@"%d", row]];
+            [_hour setText:[NSString stringWithFormat:@"%@", [[NSNumber numberWithInteger:row] stringValue]]];
             break;
         case 2:
-            [_minute setText:[NSString stringWithFormat:@"%d", row]];
+            [_minute setText:[NSString stringWithFormat:@"%@", [[NSNumber numberWithInteger:row] stringValue]]];
             break;
     }
 }
@@ -211,7 +213,7 @@
         case 0:
             return [_days objectAtIndex:row];
         default:
-            return [NSString stringWithFormat:@"%2d", row];
+            return [NSString stringWithFormat:@"%@", [[NSNumber numberWithInteger:row] stringValue]];
     }
 }
 

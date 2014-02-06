@@ -13,6 +13,7 @@
 @interface Login ()
 
 @property (strong, nonatomic) IBOutlet UIView *loginView;
+@property (strong, nonatomic) IBOutlet UIView *loginLabelView;
 @property (strong, nonatomic) IBOutlet UILabel *loginLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton *connexionButton;
@@ -31,12 +32,11 @@
     [super viewDidLoad];
 	
     /* Header */
-    [_loginLabel.layer setBorderWidth:.5];
-    [_loginLabel.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
+    [_loginLabelView.layer setBorderWidth:.5];
+    [_loginLabelView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
     /* Content */
     [_loginView.layer setBorderWidth:.5];
-    [_loginView.layer setCornerRadius:3.];
     [_loginView.layer setBorderColor:[[UIColor colorWithRed:201./255. green:205./255. blue:208./255. alpha:1.] CGColor]];
     
     //[_username setText:@"Sylvain"];
@@ -71,12 +71,12 @@
     [_username setEnabled:NO];
     [_password setEnabled:NO];
     
-    CGRect frame = _loginView.frame;
+    /*CGRect frame = _loginView.frame;
     frame.origin.y = 20;
     
     [UIView animateWithDuration:.25 animations:^(void){
         [_loginView setFrame:frame];
-    }];
+    }];*/
     
     [_connexionButton setEnabled:NO];
     [_connexionActivity startAnimating];

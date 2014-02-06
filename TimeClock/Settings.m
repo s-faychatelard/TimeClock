@@ -110,9 +110,6 @@
     
     NSDictionary *journal = [_data valueForKey:@"journal"];
     
-    NSLog(@"%@", [journal valueForKey:@"current_day"]);
-    NSLog(@"%@", journal);
-    
     [_currentDay setText:[journal valueForKey:@"current_day"]];
     
     if ([[[journal valueForKey:@"next_day"] valueForKey:@"id"] intValue] == -1)
